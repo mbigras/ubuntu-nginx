@@ -1,0 +1,29 @@
+Ubuntu NGINX
+
+Overview
+
+Connecting to virtual machine and poking around
+Shallow clone files directly into directory
+
+Links
+
+systemctl status nginx
+
+Connecting to virtual machine and poking around
+
+ssh_config=$(mktemp)
+vagrant ssh-config > $ssh_config
+ssh -F $ssh_config default
+
+sudo su -
+netstat -pant | grep LISTEN
+
+question: Why do I need the `include /etc/nginx/mime.types;` directive for CSS to work?
+question: Why do I need the events directive?
+
+note: the default root directory can be found using the nginx -V and searching for --prefix= option
+
+question: What about "enabling" or "notifying" or "reloading" nginx when I change the configuration
+
+todo: figure out how to easily scp,rysnc to and from virtual machine
+question: why does restarting nginx with system exit with status 2? https://serverfault.com/questions/723305/why-do-i-get-status-code-2-and-what-does-it-mean

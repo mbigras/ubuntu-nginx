@@ -1,0 +1,30 @@
+- hosts: all
+  tasks:
+    - block:
+      - name: install nginx
+        apt:
+          name: nginx
+
+      - name: copy configuration
+        copy:
+          src: nginx.conf
+          dest: /etc/nginx/nginx.conf
+        notify: reload nginx
+
+      - name: enable nginx
+        service:
+            name: nginx
+            enabled: yes
+
+      - name: clone site
+        git:
+          repo: https://github.com/mbigras/site
+          dest: /var/www/site
+      become: yes
+
+  handlers:
+    - name: reload nginx
+      service:
+          name: nginx
+          state: reloaded
+      become: yes
